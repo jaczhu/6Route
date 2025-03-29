@@ -1,2 +1,4 @@
 # 6Route
-An IPv6 topology discovery tool
+6Route is an IPv6 network topology discovery system.
+## Using 6Route
+python main.py
