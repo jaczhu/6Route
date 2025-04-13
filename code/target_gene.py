@@ -88,7 +88,22 @@ def replace_stars(s, index=0):
         result.extend(replace_stars(new_s, index + 1))
     return result
 
-def target_gene(prefix_ip, dim, output_file):  
+def replace_chars(s, index_list):
+    # 如果已经处理完所有字符，返回当前字符串
+    if len(index_list) == 0:
+        return [s]
+    # 如果当前字符是 '*', 替换为 '0' 到 'f' 的所有可能值
+    result = []
+    index = index_list[0]
+    for char in '0123456789abcdef':
+        if index == 15:
+            new_s = s[:index] + char
+        else:
+            new_s = s[:index] + char + s[index + 1:]
+        result.extend(replace_chars(new_s, index_list[1:]))
+    return result
+
+def target_gene(prefix_ip, budget, dim, output_file):  
     generate_num = 0
     densities = []
     for key, value in prefix_ip.items():
@@ -203,7 +218,6 @@ if __name__ == "__main__":
     parse.add_argument('--output_file', type=str, help='path of output')
     parse.add_argument('--budget',type=int,help='quantity of addresses detected by each BGP')
     parse.add_argument('--dim',type=int, default=2, help='dimension of target generation')
-    parse.add_argument('--gene',type=int, help='whether to generate targets')
     args=parse.parse_args()
     start_time = time.time()
     ip6Rtree = radix.Radix()

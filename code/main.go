@@ -363,11 +363,10 @@ func main() {
 						continue
 					}
 					Scan(net.ParseIP(key), initialTTL)
-					
 					packetSent +=1
-					//if packetSent % rate == 0 {
-					//	time.Sleep(700 * time.Millisecond)
-					//}
+					if packetSent % rate == 0 {
+						time.Sleep(1000 * time.Millisecond)
+					}
 				}
 				time.Sleep(2 * time.Second)
 				close(stopChan1)
@@ -389,6 +388,9 @@ func main() {
 						block.nextBackwardTTL--
 						safeSet(key, block)
 						packetSent +=1
+						if packetSent % rate == 0 {
+							time.Sleep(1000 * time.Millisecond)
+						}
 					} else {
 						safeDelete(key)
 						//block.stopBackward = true
@@ -396,9 +398,9 @@ func main() {
 				}
 			}
 			time.Sleep(2 * time.Second)
-			fmt.Println("sent packets:", packetSent)
+			fmt.Printf("%s sent packets: %d\n", time.Now().Format("2006-01-02 15:04:05"), packetSent)
 			respondersBackwardMutex.RLock()
-			fmt.Println("backward responders:", len(respondersBackward))
+			fmt.Printf("%s backward responders: %d\n", time.Now().Format("2006-01-02 15:04:05"), len(respondersBackward))
 			fmt.Fprintf(log, "backward responders: %d\n", len(respondersBackward))
 			respondersBackwardMutex.RUnlock()
 		}
@@ -620,7 +622,7 @@ func preRecv(stopChan chan struct{}) {
 						distance = 64 - responseTTl
 					}
 					if responseTTl >= 64 && responseTTl <= 223 {
-						distance = 32
+						distance = 16
 						//continue
 					}
 					if responseTTl > 223 {
