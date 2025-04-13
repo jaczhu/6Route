@@ -4,8 +4,8 @@
 go build
 ## Usage
 ### Target Generation
-
+'''bash
 python target_gene.py --address_file address.txt --prefix_file prefix.txt --budget 10000000
 ### Traceroute
-
+'''bash
 ./6Route --address_file address.txt -s source_address -m source_mac -r 10000 
