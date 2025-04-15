@@ -2,7 +2,7 @@ from collections import Counter,defaultdict
 import math 
 import time
 from IPy import IP
-import radix   
+import radix
 import argparse
 import sys
 import random
@@ -135,7 +135,7 @@ def target_gene(prefix_ip, budget, dim, output_file):
         if len(prefixes) == 1:
             continue
         density = len(prefixes) / 2 ** (64 - prefix_len)
-        budget = budget_all * density / density_sum
+        budget = budget * density / density_sum
         print(key1, len(prefixes), budget)
         #print(budget)
         prefix_str = IP(value[0]).strFullsize().replace(":", "")[:16]
