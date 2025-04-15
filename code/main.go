@@ -365,7 +365,7 @@ func main() {
 					Scan(net.ParseIP(key), initialTTL)
 					packetSent +=1
 					if packetSent % rate == 0 {
-						time.Sleep(1000 * time.Millisecond)
+						time.Sleep(800 * time.Millisecond)
 					}
 				}
 				time.Sleep(2 * time.Second)
@@ -389,7 +389,7 @@ func main() {
 						safeSet(key, block)
 						packetSent +=1
 						if packetSent % rate == 0 {
-							time.Sleep(1000 * time.Millisecond)
+							time.Sleep(800 * time.Millisecond)
 						}
 					} else {
 						safeDelete(key)
@@ -401,6 +401,7 @@ func main() {
 			fmt.Printf("%s sent packets: %d\n", time.Now().Format("2006-01-02 15:04:05"), packetSent)
 			respondersBackwardMutex.RLock()
 			fmt.Printf("%s backward responders: %d\n", time.Now().Format("2006-01-02 15:04:05"), len(respondersBackward))
+			fmt.Fprintf(log, "backward responders: %d\n", len(respondersBackward))
 			fmt.Fprintf(log, "backward responders: %d\n", len(respondersBackward))
 			respondersBackwardMutex.RUnlock()
 		}
