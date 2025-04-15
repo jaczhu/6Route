@@ -5,7 +5,14 @@ go build
 ## Usage
 ### Target Generation
 
+<<<<<<< HEAD
 python target_gene.py --address_file address.txt --prefix_file prefix.txt --budget 10000000
 ### Traceroute
 
 ./6Route --address_file address.txt -s source_address -m source_mac -r 10000 
+=======
+`python target_gene.py --address_file address.txt --prefix_file prefix.txt --budget 10000000`
+### Traceroute
+
+`./6Route --address_file address.txt -s source_address -m source_mac -r 10000`
+>>>>>>> c42a55ed97716a7d0d5ff6ee037896c7940f313f
